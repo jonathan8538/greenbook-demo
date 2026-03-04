@@ -69,7 +69,7 @@ function SlideHero({ goTo }) {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
           className="inline-flex items-center gap-2 glass rounded-full px-4 py-2 mb-10">
           <span className="w-1.5 h-1.5 rounded-full" style={{ background: RED }} />
-          <span className="text-gray-500 text-xs tracking-[0.2em] uppercase">Internal RAG Chatbot · 2026</span>
+          <span className="text-gray-500 text-xs tracking-[0.2em] uppercase">GAR GPT · 2026</span>
         </motion.div>
 
         <motion.h1 initial={{ opacity: 0, y: 28 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.1 }}
@@ -93,7 +93,7 @@ function SlideHero({ goTo }) {
             onMouseLeave={e => { e.currentTarget.style.boxShadow = "none"; e.currentTarget.style.background = RED; }}
           >
             <Play size={14} fill="currentColor" />
-            Watch the Demo
+            Next
             <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
         </motion.div>
@@ -123,6 +123,13 @@ function VideoPlayer() {
   useEffect(() => () => clearTimeout(hideTimer.current), []);
 
 
+  useEffect(() => {
+    const v = videoRef.current;
+    if (v) {
+      v.play();
+      setPlaying(true);
+    }
+  }, []);
 
   // Sync progress
   useEffect(() => {
@@ -182,7 +189,7 @@ function VideoPlayer() {
         onClick={e => e.stopPropagation()}
       >
         <div className="relative rounded-2xl overflow-hidden video-shadow cursor-pointer" onClick={togglePlay}>
-          <div className="overflow-hidden" style={{ margin: '-3% 3% -3% 0' }}>
+          <div className="overflow-hidden" style={{ margin: '-3% 0% -3% 0' }}>
             <video ref={videoRef} src="vid/0303.mp4" muted playsInline preload="metadata"
               className="w-full block" />
           </div>
@@ -191,13 +198,9 @@ function VideoPlayer() {
           <AnimatePresence>
             {!playing && (
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
-                className="absolute inset-0 flex items-center justify-center"
-                style={{ background: "rgba(0,0,0,0.35)" }}>
-                <motion.div whileHover={{ scale: 1.08 }} whileTap={{ scale: 0.95 }}
-                  className="w-16 h-16 rounded-full glass-strong flex items-center justify-center">
-                  <Play size={22} fill="white" className="text-white" style={{ marginLeft: 3 }} />
-                </motion.div>
-              </motion.div>
+                className="absolute inset-0"
+                style={{ background: "rgba(0,0,0,0.35)" }}
+              />
             )}
           </AnimatePresence>
         </div>
